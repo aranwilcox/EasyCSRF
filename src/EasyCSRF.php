@@ -110,7 +110,28 @@ class EasyCSRF
      */
     protected function referralHash()
     {
-        return sha1($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
+    	$user_ipaddress=0;
+    	
+	    //get correct Remote IP Address with Cloudfront
+	    if (!empty($_SERVER["HTTP_CLIENT_IP"])) {
+		    //check for ip from share internet
+		    $ip = $_SERVER["HTTP_CLIENT_IP"];
+	    } elseif (!empty($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+		    // Check for the Proxy User
+		    $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+	    } else {
+		    $ip = $_SERVER["REMOTE_ADDR"];
+	    }
+
+	    // This will print user's real IP Address it doesn't matter if the user is using proxy or not. Remove Cloudfront IP
+	    $pos = strpos($ip, ',');
+	    if ($pos > 0){
+		    $user_ipaddress = substr($ip, 0, $pos);
+	    }else{
+		    $user_ipaddress = $ip;
+	    }
+
+	    return sha1($user_ipaddress . $_SERVER['HTTP_USER_AGENT']);
     }
 
     /**
