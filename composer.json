@@ -1,8 +1,12 @@
 {
-    "name": "gilbitron/easycsrf",
-    "description": "A simple, standalone CSRF protection library",
+    "name": "glowblogs/easycsrf",
+    "description": "A simple, standalone CSRF protection library. Forked by Aran Wilcox to work with a AWS load balanacer",
     "license": "MIT",
     "authors": [
+        {
+            "name": "Aran Wilcox",
+            "email": "aran.wilcox@affinity-digital.com"
+        },
         {
             "name": "Gilbert Pellegrom",
             "email": "gilbert@pellegrom.me"
